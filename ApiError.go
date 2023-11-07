@@ -9,6 +9,20 @@ type ApiError struct {
 	EnableStackTraceBody bool              `json:"-"`
 }
 
+func NewError(statusCode int, enum GenericErrorCode, errorMessage string) ApiRuntimeError {
+	getApiError := GetApiError(enum, errorMessage)
+	return NewApiRuntimeError(statusCode, getApiError)
+}
+
+func GetApiError(errorCode GenericErrorCode, errorMessage string) ApiError {
+	return Builder().
+		Code(errorCode.GetCodeByEnv()).
+		Description(errorCode.GetMessageByEnv()).
+		OriginSystem(errorCode.GetOrigimSystemByEnv()).
+		AddDetails("error_message", errorMessage).
+		Build()
+}
+
 type apiErrorBuilder struct {
 	apiError ApiError
 }

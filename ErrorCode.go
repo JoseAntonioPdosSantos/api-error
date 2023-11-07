@@ -12,10 +12,14 @@ type getPropertyByName func(errorCode GenericErrorCode, propertyName string) str
 var GetPropertyByName getPropertyByName
 var ErrorCode = "error-code"
 var ErrorMessage = "error-message"
+var OrigimSystem = ""
 
 func (g GenericErrorCode) GetCodeByEnv() string {
 	return GetPropertyByName(g, ErrorCode)
 }
 func (g GenericErrorCode) GetMessageByEnv() string {
 	return GetPropertyByName(g, ErrorMessage)
+}
+func (g GenericErrorCode) GetOrigimSystemByEnv() string {
+	return OrigimSystem
 }
