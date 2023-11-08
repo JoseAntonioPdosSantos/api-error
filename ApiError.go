@@ -74,3 +74,12 @@ func (a *apiErrorBuilder) Build() ApiError {
 	}
 	return a.apiError
 }
+
+func GetByCode(errorCode GenericErrorCode) *ApiError {
+	return &ApiError{
+		Code:         errorCode.GetCodeByEnv(),
+		Description:  errorCode.GetMessageByEnv(),
+		OriginSystem: OrigimSystem,
+		StackTrace:   nil,
+	}
+}
